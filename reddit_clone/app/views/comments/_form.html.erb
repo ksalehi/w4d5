@@ -1,0 +1,20 @@
+<% if request == "new"
+    action = post_comments_url(post_id: params[:post_id])
+    method = "post"
+    text = "Create"
+  elsif request == "edit"
+    action = post_comment_url(post_id: comment.post_id, id: comment.id)
+    method = "patch"
+    text = "Update"
+  end
+%>
+
+<form action="<%= action %>" method="post">
+  <input type="hidden" name="_method" value="<%= method %>">
+  <%= render "shared/auth" %>
+
+  <label for="content">Content: </label>
+  <textarea name="comment[content]" rows="8" cols="40" id="content"><%= comment.content %></textarea>
+
+  <input type="submit" value="<%= text %> comment">
+</form>

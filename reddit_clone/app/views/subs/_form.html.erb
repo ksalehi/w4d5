@@ -1,0 +1,26 @@
+<%
+  if request == "new"
+    action = subs_url
+    method = "post"
+    button = "Create"
+  elsif request == "edit"
+    action = sub_url(sub.id)
+    method = "patch"
+    button = "Edit"
+  end
+%>
+
+<form class="" action="<%=action%>" method="post">
+  <input type="hidden" name="_method" value="<%=method%>">
+  <%= render "shared/auth" %>
+
+  <label for="sub_title">Title: </label>
+  <input type="text" name="sub[title]" value="<%= sub.title %>" id="sub_title">
+  <br><br>
+
+  <label for="sub_description">Description: </label>
+  <textarea name="sub[description]" id="sub_description"><%=sub.description%></textarea>
+  <br><br>
+
+  <input type="submit" value="<%= button %> sub">
+</form>

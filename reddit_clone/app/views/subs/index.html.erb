@@ -1,0 +1,7 @@
+<h1>These are all the subs!</h1>
+
+<ul>
+  <%@subs.each do |sub|%>
+    <li><%= link_to slicer(sub.title, sub.description), sub_url(sub) %></li>
+  <%end%>
+</ul>

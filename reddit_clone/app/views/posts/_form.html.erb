@@ -1,0 +1,40 @@
+<% if request == "new"
+    action = posts_url
+    method = "post"
+    button = "Create"
+  elsif request == "edit"
+    action = post_url(id: post.id)
+    method = "patch"
+    button = "Update"
+  else
+    raise "We need to fix this."
+  end
+%>
+
+<form action="<%= action %>" method="post">
+  <input type="hidden" name="_method" value="<%= method %>">
+
+  <%= render "shared/auth" %>
+
+  <label for="post_title">Title: </label>
+  <input type="text" name="post[title]" value="<%= post.title %>" id="post_title">
+  <br><br>
+
+  <label for="post_content">Content: </label>
+  <textarea name="post[content]" id="post_content"><%=post.content%></textarea>
+  <br><br>
+
+  <label for="url">Links: </label>
+  <input type="text" name="post[url]" value="<%= post.url %>" id="url">
+  <br><br>
+
+  Associated Subs:
+  <input type="hidden" name="post[sub_ids][]" value="">
+  <% Sub.all.each do |sub| %>
+    <label for="subids"><%=sub.title%></label>
+    <input type="checkbox" name="post[sub_ids][]" value = "<%=sub.id%>"
+      <%= "checked" if post.sub_ids.include?(sub.id) %> id="subids">
+  <% end %>
+
+  <input type="submit" value="<%= button %> post">
+</form>

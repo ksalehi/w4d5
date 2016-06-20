@@ -1,0 +1,16 @@
+<h1><%= @sub.title %></h1>
+
+Description: <%= @sub.description %>
+<br><br>
+
+<%= button_to "edit sub", edit_sub_url(@sub.id), method: :get %>
+<%= button_to "create post", new_post_url, method: :get %>
+<br>
+<ul>
+<% @sub.posts.each do |post| %>
+  <li><%= link_to slicer(post.title, post.content, 100),
+    post_url(post.id) %></li>
+<% end %>
+</ul>
+
+<%= button_to "Go back to all subs", subs_url, method: :get %>
